@@ -1,6 +1,6 @@
 %1 - The algorithm begins by creating a random initial population.
 CROMOSSOME_SIZE = 25;
-POPULATION_SIZE = 20;
+POPULATION_SIZE = 50;
 MAX_RANGE_VALUES = 5;
 CROSSOVER_FRACTION = 0.8;
 GENERATIONS = 100;
