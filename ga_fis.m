@@ -1,9 +1,14 @@
 %1 - The algorithm begins by creating a random initial population.
 CROMOSSOME_SIZE = 25;
 POPULATION_SIZE = 50;
+PARENTS_SIZE = 20;
 MAX_RANGE_VALUES = 5;
 CROSSOVER_FRACTION = 0.8;
+CROSSOVER_RATE = 50;
+MUTATION_RATE = 10;
 GENERATIONS = 100;
+SELECTION_TYPE = 3; 
+ELITE_COUNT = 5;
 
 population = generate_population(CROMOSSOME_SIZE, POPULATION_SIZE, MAX_RANGE_VALUES);
 
@@ -11,6 +16,8 @@ population = generate_population(CROMOSSOME_SIZE, POPULATION_SIZE, MAX_RANGE_VAL
 %At each step, the algorithm uses the individuals in the current generation 
 %to create the next population. To create the new population, 
 %the algorithm performs the following steps:
+
+best_fitness = struct('code','', 'fitness',0);
 
 for gen = 1:GENERATIONS
 
@@ -24,26 +31,28 @@ population = evaluate_population_fitness(population, POPULATION_SIZE);
 % ???
 
 %c - Selects members, called parents, based on their fitness.
-PARENTS_SIZE = 2;
-parents = selection(population,0,PARENTS_SIZE);
+parents = selection(population,SELECTION_TYPE,ELITE_COUNT, PARENTS_SIZE);
 
 D = ['generation: ',num2str(gen),' / ','BEST FITNESS: ', num2str(parents(1).fitness),' / ','SECOND BEST FITNESS: ', num2str(parents(2).fitness)];
 disp(D);
 
+best_fitness = parents(1);
+
 %d - Some of the individuals in the current population that have best 
 %fitness are chosen as elite. These elite individuals are passed to the next population.
 
-ELITE_COUNT = 2;
 elite = population(1:ELITE_COUNT);
 
 %e - Produces children from the parents. Children are produced either by 
 %making random changes to a single parent?mutation?or by combining the 
 %vector entries of a pair of parents?crossover.
 
-population = reproduction(parents,elite,ELITE_COUNT,CROSSOVER_FRACTION,POPULATION_SIZE);
+population = reproduction(parents,elite,ELITE_COUNT,CROSSOVER_FRACTION,POPULATION_SIZE, MUTATION_RATE, CROSSOVER_RATE, SELECTION_TYPE);
 
 %f - Replaces the current population with the children to form the next generation.
 end
+
+save(simulation2);
 
 
 

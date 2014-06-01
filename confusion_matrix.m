@@ -38,7 +38,7 @@ for l = 1:length(N_RES)
 end
 confusion(2,2) = TN;
 
-confusion;
+confusion
 precision = (TP / (TP + FP));
 recall = (TP / (TP + FN));
 f1 = (2 * ((precision * recall) / (precision + recall)));

@@ -7,12 +7,12 @@ function parents = selection( population, type, elite_quantity,quantity_to_selec
 %   quantity - number of individuals that will be selected
 
 %sort population by fitness and gets the best two of them
-population = sort_population_by_fitness(population);
-parents = population(1:elite_quantity);
+    population = sort_population_by_fitness(population);
+    parents = population(1:elite_quantity);
 
-if type == 3
-    parents = elite_and_random_selection(population,quantity_to_select,elite_quantity);
-end 
-
+    if type == 3
+        parents = elite_and_random_selection(population,quantity_to_select,elite_quantity);
+        parents = sort_population_by_fitness(parents);
+    end 
 end
 
